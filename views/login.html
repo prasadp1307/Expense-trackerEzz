@@ -1,0 +1,136 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Login</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">ExpenseEzz!</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>ExpenseEzz!</h1>
+        <form id="loginform" onsubmit="onlogin(event)" action="/" method="post" class="loginform">
+            <div class="form-group">
+                <input type="email" placeholder="Enter Email" name="email" required>
+            </div>  
+            <div class="form-group">
+                <input type="password" placeholder="Enter Password" name="password" required>
+                         </div>
+            <button type="submit" id="add">Login</button>
+        </form>
+        <br>
+        <a class="already-registered" href="forgetpassword.html">forgot password?</a><br>
+        <a href="/signUp.html"> 
+            <button type="button" class="sign-up-button">Sign Up</button>
+        </a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+    <script>
+        async function onlogin(event){
+            event.preventDefault();
+            try{
+                let loginDetails = {
+                    email: event.target.email.value,
+                    password: event.target.password.value  
+                };
+                console.log(loginDetails);
+                let op = await axios.post("http://localhost:4000/user/login", loginDetails);
+                console.log(op.data)
+                localStorage.setItem('token', op.data.token);
+                if(op.status == 201){
+                    alert('Login Successfully');
+                    window.location.href = "/dashboard.html";
+                } else {
+                    throw new Error('Failed to login');
+                }
+            } catch(err){
+                if(err.response === undefined){
+                    document.body.innerHTML = `<div class="error_box-container"><div class="error_box">${err}</div></div>` + document.body.innerHTML;
+                } else {
+                    document.body.innerHTML = `<div class="error_box-container"><div class="error_box">${err.response.data.message}</div></div>` + document.body.innerHTML;
+                }
+                const errbox = document.getElementsByClassName('error_box');
+                for(let i = 0; i < errbox.length; i++){
+                    setTimeout(() => {
+                        errbox[i].style.display = 'none';
+                    }, 4000);
+                }
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Login</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">ExpenseEzz!</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>ExpenseEzz!</h1>
+        <form id="loginform" onsubmit="onlogin(event)" action="/" method="post" class="loginform">
+            <div class="form-group">
+                <input type="email" placeholder="Enter Email" name="email" required>
+            </div>  
+            <div class="form-group">
+                <input type="password" placeholder="Enter Password" name="password" required>
+            </div>
+            <button type="submit" id="add">Login</button>
+        </form>
+        <br>
+        <a class="already-registered" href="forgetpassword.html">Forgot password?</a><br>
+        <a href="/signUp.html"> 
+            <button type="button" class="sign-up-button">Sign Up</button>
+        </a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+    <script>
+        async function onlogin(event){
+            event.preventDefault();
+            try{
+                let loginDetails = {
+                    email: event.target.email.value,
+                    password: event.target.password.value  
+                };
+                console.log(loginDetails);
+                let op = await axios.post("http://localhost:4000/user/login", loginDetails);
+                console.log(op.data)
+                localStorage.setItem('token', op.data.token);
+                if(op.status == 201){
+                    alert('Login Successfully');
+                    window.location.href = "/dashboard.html";
+                } else {
+                    throw new Error('Failed to login');
+                }
+            } catch(err){
+                if(err.response === undefined){
+                    document.body.innerHTML = `<div class="error_box-container"><div class="error_box">${err}</div></div>` + document.body.innerHTML;
+                } else {
+                    document.body.innerHTML = `<div class="error_box-container"><div class="error_box">${err.response.data.message}</div></div>` + document.body.innerHTML;
+                }
+                const errbox = document.getElementsByClassName('error_box');
+                for(let i = 0; i < errbox.length; i++){
+                    setTimeout(() => {
+                        errbox[i].style.display = 'none';
+                    }, 4000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

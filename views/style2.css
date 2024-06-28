@@ -1,0 +1,143 @@
+body {
+    font-family: cursive;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("bg.jpg"), url("bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-color: #cccccc;
+    
+}   
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f9;
+    padding: 20px 30px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 255px;
+    width: 100%;
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px; 
+    color: #666666;
+}
+
+input {
+    width: 100%; 
+    padding: 12px;
+    margin-bottom: 10px; 
+    border: 1px solid #cccccc;
+    border-radius: 150px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    text-align: center;
+}
+
+input:focus {
+    border-color: #000203;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #de85e8;
+    color: #f4f4f4;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #b32af3;
+}
+
+button[type="button"] {
+    padding: 10px 20px;
+    background-color: #509ae9;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="button"]:hover {
+    background-color: #0978ef;
+}
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.checkbox-container label {
+    display: flex;
+    align-items: center;
+    color: #666666;
+    margin-bottom: 0;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+nav 
+{
+    width: 100%;
+    background-color: #333333;
+    overflow: hidden;
+    padding: 10px 0;
+    position: fixed;
+    align-self: normal;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content:left ;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-align: center;
+    font-family: cursive;
+    padding: 14px 16px;
+    text-decoration:overline;
+    font-size: 24px;
+}
+
+nav ul li a:hover {
+    text-decoration:underline;
+}

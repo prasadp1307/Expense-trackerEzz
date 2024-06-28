@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">ExpenseEzz!</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+         <h1>Let's Sign Up</h1>
+        <form onsubmit="return onsignup(event)" autocomplete="on" method="POST">
+            <div class="form-group">
+                <input type="text" placeholder="Enter Name" name="name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Enter Email" name="email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Enter Password" name="password" required>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Confirm Password" name="confirmPassword" required>
+            </div>
+            <button type="submit">Sign Up</button>
+            <br>
+            <div class="checkbox-container">
+                <label>
+                    <input type="checkbox" required> You agree to our Terms & Privacy Policy
+                </label>
+            </div>                
+        </form><br>
+        <div class="login-container">
+            <a href="/login.html">
+                <button type="button" class="login-button">Login</button>
+            </a>
+            <p class="already-registered">Already a member? <a href="/login.html">Login</a></p>
+        </div>
+        <div id="error" class="error-box"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+        <script>
+            async function onsignup(event){
+              event.preventDefault();
+              try{
+                  let password = document.getElementsByName("password")[0].value;
+                  let confirmPassword = document.getElementsByName("confirmPassword")[0].value;
+
+                  if (password !== confirmPassword) {
+                      throw new Error('Passwords do not match');
+                  }
+
+                  let myobj = {
+                      name: event.target.name.value,
+                      email: event.target.email.value,
+                      password: password
+                  }
+    
+                  let op = await axios.post("http://localhost:4000/user/signup",myobj);
+                  console.log(op.status);
+                  if(op.status==201){
+                    alert('Sign up successfully');
+                    window.location.href= '/login.html';
+                  }else{
+                    throw new Error('Failed to signup');
+                  }
+              }catch(err){
+                document.getElementById('error').innerText = err.message;
+                setTimeout(() => {
+                    document.getElementById('error').innerText = '';
+                }, 3000);
+              }   
+            }
+        </script>
+    </div>
+</body>
+</html>
