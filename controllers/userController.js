@@ -14,7 +14,7 @@ const generateToken=(id, name, isPremium)=>{
 }
 
 // // Controller for user Registration
-const signupUser = async (req, res) => {
+const signupUser = async (req, res,next) => {
     try {
         const name = req.body.name.trim();
         const email = req.body.email.trim();
@@ -190,7 +190,7 @@ function containsLetterAndNumber(str) {
 // function Invalidstring(str) {
 //     return (!str || str.trim().length === 0);
 // }
-const loginUser = async (req, res) => {
+const loginUser = async (req, res,next) => {
     try {
         console.log('Request body:', req.body);
 
@@ -259,7 +259,7 @@ function Invalidstring(str) {
     return (!str || str.trim().length === 0);
 }
 
-// module.exports = { loginUser };
+module.exports = { loginUser };
 
 
 

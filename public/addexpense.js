@@ -105,22 +105,3 @@ async function deleteExpense(e) {
     }
 }
 
-
-
-
-// addExpenseForm.addEventListener('submit', postExpenses);
-// async function postExpenses(e) {
-//     try {
-//         e.preventDefault();
-//         const expense = {
-//             expenseamount: Number(expenseamount.value),
-//             description: description.value,
-//             category: category.value
-//         };
-//         const postedExpense = await axios.post('http://localhost:4000/expenses/add-expense', expense, { headers: { "Authorization": token } });
-//         addToExpenseList(postedExpense.data);
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// }
