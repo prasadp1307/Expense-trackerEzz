@@ -83,7 +83,7 @@
     </nav>
     <div class="container">
         <h1>ExpenseEzz!</h1>
-        <form id="loginform" onsubmit="onlogin(event)" action="/" method="post" class="loginform">
+        <!-- <form id="loginform" onsubmit="onlogin(event)" action="/" method="post" class="loginform">
             <div class="form-group">
                 <input type="email" placeholder="Enter Email" name="email" required>
             </div>  
@@ -92,7 +92,17 @@
             </div>
             <button type="submit" id="add">Login</button>
         </form>
-        <br>
+        <br> -->
+        <form id="loginform" onsubmit="onlogin(event)"  method="POST" class="loginform">
+    <div class="form-group">
+        <input type="email" placeholder="Enter Email" name="email" required>
+    </div>  
+    <div class="form-group">
+        <input type="password" placeholder="Enter Password" name="password" required>
+    </div>
+    <button type="submit" id="add">Login</button>
+</form>
+
         <a class="already-registered" href="forgetpassword.html">Forgot password?</a><br>
         <a href="/signUp.html"> 
             <button type="button" class="sign-up-button">Sign Up</button>

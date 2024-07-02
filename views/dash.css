@@ -4,6 +4,19 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
+#welcomeMessage {
+    font-size: 24px;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#welcomeMessage:hover {
+    color: #ffffff;
+    transform: scale(0.9);
+}
+
 .menuButton {
     display: inline;
     padding: 10px 20px;
@@ -75,6 +88,9 @@ nav ul li a:hover {
 h1 {
     text-align: center;
     margin-bottom: 1em;
+}
+p {
+    color: #ccc;
 }
 
 /* Premium section styles */
