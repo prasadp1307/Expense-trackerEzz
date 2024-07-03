@@ -106,7 +106,7 @@
     <script src="../public/leaderboardopti.js"></script>
 </body>
 </html> -->
-
+<!--  
 
 <!DOCTYPE html>
 <html lang="en">
@@ -147,12 +147,24 @@
                 <option value="Entertainment">Entertainment</option>
             </select>
             <button type="submit" id="addExpenseBtn">Add Expense</button>
+            
         </form>
+        <div class="pagination-controls">
+            <label for="entriesPerPage">Entries per page:</label>
+            <select id="entriesPerPage">
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="7">7</option>
+                <option value="10">10</option>
+                <option value="13">13</option>
+            </select>
+               </div>
         <ul class="expenseList"></ul>
-        <div class="buyPremium">
+                <div class="buyPremium">
             <button id="rzpbtn1">Buy Premium</button>
         </div>
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -161,6 +173,7 @@
     <script src="/public/leaderboard.js"></script>
     <script src="/public/leaderboardopti.js"></script>
     <script src="/public/download.js"></script>
+    <script src="/public/pagination.js"></script>
     <script>
         // Function to decode JWT and get user info
         function decodeToken() {
@@ -180,23 +193,117 @@
             }
         });
 
-        // // Redirect functions
-        // function redirectToReports() {
-        //     window.location.href = '/reports.html';
-        // }
-
-        // function redirectToLeader() {
-        //     window.location.href = '/leaderboard.html';
-        // }
-
-        // function redirectToAboutUs() {
-        //     window.location.href = '/aboutus.html';
-        // }
-
-        // function redirectToLogout() {
-        //     localStorage.removeItem('token');
-        //     window.location.href = '/';
-        // }
+       
     </script>
 </body>
+</html>
+
+ -->
+
+
+
+
+
+
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker Dashboard</title>
+    <link rel="stylesheet" href="dash.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">ExpenseEzz!</a></li>
+            <li><button class="menuButton" id="reportbutton" onclick="redirectToReports()">Reports</button></li>
+            <li><button class="menuButton" id="leaderboardButton" onclick="redirectToLeader()">LeaderBoard</button></li>
+            <li><button class="menuButton" onclick="redirectToAboutUs()">About Us!</button></li>
+            <li><button class="menuButton" onclick="redirectToLogout()">Logout</button></li>
+        </ul>
+    </nav>
+    <h3 id="welcomeMessage">Welcome to the </h3>
+    <p>You are now logged in!</p>
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        <div class="premium"></div>
+        <form class="addExpenseForm">
+            <label for="expenseamount">Amount:</label>
+            <input type="number" id="expenseamount" required>
+            <label for="description">Description:</label>
+            <input type="text" id="description" required>
+            <label for="category">Category:</label>
+            <select id="category" required>
+                <option value=""></option>
+                <option value="Fuel">Fuel</option>
+                <option value="Food">Food</option>
+                <option value="Rent">Rent</option>
+                <option value="Other">Other</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+            <button type="submit" id="addExpenseBtn">Add Expense</button>
+        </form>
+        <div>
+            <br>
+            <label id="pageSizeSelector">Choose number of entries per page:</label>
+            <select  onchange="pageSelectorChanged(event)">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="10">10</option>
+                <option value="13">13</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+            </select>
+         <ul class="expenseList"></ul>
+        <div id="pagination">
+            <button id="prevPage">Previous</button>
+            <span id="pageNumber">1</span>
+            <button id="nextPage">Next</button>
+        </div>
+        <ul class="expenseList"></ul>
+        <div class="buyPremium">
+            <button id="rzpbtn1">Buy Premium</button>
+        </div>
+      
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="/public/addexpense.js"></script>
+    <script src="/public/premium.js"></script>
+    <script src="/public/leaderboard.js"></script>
+    <script src="/public/leaderboardopti.js"></script>
+    <script src="/public/download.js"></script>
+    <script src="/public/pagination.js"></script>
+    <script>
+        // Function to decode JWT and get user info
+        function decodeToken() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const decoded = jwt_decode(token);
+                return decoded;
+            }
+            return null;
+        }
+
+        // Display the welcome message with the user's name
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = decodeToken();
+            if (user) {
+                document.getElementById('welcomeMessage').innerText = `Welcome to the Dashboard, ${user.name}`;
+            }
+        });
+
+    </script>
+</body>
+<footer>
+    <p>&copy; 2024 ExpenseEzz! All rights reserved.</p>
+</footer>
 </html>

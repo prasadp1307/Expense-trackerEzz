@@ -50,24 +50,24 @@ async function showExpenses(e) {
 }
 
 // Show Present Expenses
-document.addEventListener('DOMContentLoaded', showExpenses);
-async function showExpenses() {
-    try {
-        const getExpenses = await axios.get('http://localhost:4000/expenses/get-expense', {
-            headers: { "Authorization": token }
-        });
-        // console.log("Expenses retrieved:", getExpenses.data);
-        if (getExpenses.data.length > 0) {
-            getExpenses.data.forEach(expense => {
-                addToExpenseList(expense);
-            });
-        } else {
-            console.log('No expenses found');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-}
+// document.addEventListener('DOMContentLoaded', showExpenses);
+// async function showExpenses() {
+//     try {
+//         const getExpenses = await axios.get('http://localhost:4000/expenses/get-expense', {
+//             headers: { "Authorization": token }
+//         });
+//         // console.log("Expenses retrieved:", getExpenses.data);
+//         if (getExpenses.data.length > 0) {
+//             getExpenses.data.forEach(expense => {
+//                 addToExpenseList(expense);
+//             });
+//         } else {
+//             console.log('No expenses found');
+//         }
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
 
 
 // Insert in DB
@@ -98,6 +98,7 @@ async function deleteExpense(e) {
             const deleteRequest = await axios.delete(`http://localhost:4000/expenses/delete-expense/${expenseId}`, { headers: { "Authorization": token } });
             console.log("Delete Request Response:", deleteRequest.data);
             e.target.parentElement.remove();
+            
         }
     }
     catch (err) {
@@ -105,3 +106,70 @@ async function deleteExpense(e) {
     }
 }
 
+
+
+
+// addExpenseForm.addEventListener('submit', postExpenses);
+// async function postExpenses(e) {
+//     try {
+//         e.preventDefault();
+//         const expense = {
+//             expenseamount: Number(expenseamount.value),
+//             description: description.value,
+//             category: category.value
+//         };
+//         const postedExpense = await axios.post('http://localhost:4000/expenses/add-expense', expense, { headers: { "Authorization": token } });
+//         addToExpenseList(postedExpense.data);
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
+async function loadExpenses(page, pageSize) {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:4000/expenses/get-expenses`, {
+            params: { page, pageSize },
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const { expenses, currentPage, totalPages } = response.data;
+
+        const expenseList = document.querySelector('.expenseList');
+        expenseList.innerHTML = ''; // Clear previous content
+
+        if (expenses.length === 0) {
+            const listItem = document.createElement('li');
+            listItem.textContent = "No expenses found.";
+            expenseList.appendChild(listItem);
+        } else {
+            // Reverse loop to prepend items
+            for (let i = expenses.length - 1; i >= 0; i--) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${expenses[i].description} - ${expenses[i].expenseamount} - ${expenses[i].category}`;
+                expenseList.prepend(listItem); // Prepend new items
+            }
+        }
+
+        document.getElementById('pageNumber').innerText = currentPage;
+        document.getElementById('prevPage').disabled = currentPage === 1;
+        document.getElementById('nextPage').disabled = currentPage === totalPages;
+
+        localStorage.setItem('pageSize', pageSize);
+    } catch (error) {
+        console.error("Error loading expenses:", error);
+        showError(error);
+    }
+}
+
+
+function showError(error) {
+    console.error('An error occurred:', error.message || error);
+    const errorElement = document.getElementById('error');
+    if (errorElement) {
+        errorElement.textContent = 'An error occurred: ' + (error.message || error);
+        errorElement.style.display = 'block';
+    } else {
+        alert('An error occurred: ' + (error.message || error));
+    }
+}

@@ -12,11 +12,100 @@ exports.getExpenses = async (req, res, next) => {
     try {
         console.log("Fetching expenses for user ID:", req.user.id);
         const expenses = await Expense.findAll({ where: { userId: req.user.id } });
-        console.log("Expenses found:", expenses);
+        // console.log("Expenses found:", expenses);  
         res.status(200).json(expenses);
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, message: err.message });
+    }
+};
+// exports.getExpenses = async (req, res, next) => {
+//     try {
+//         console.log("Fetching expenses for user ID:", req.user.id);
+
+//         const page = parseInt(req.query.page) || 1;
+//         const limit = parseInt(req.query.pageSize) || 5;
+//         const offset = (page - 1) * limit;
+
+//         console.log(`Page: ${page}, Limit: ${limit}, Offset: ${offset}`);
+
+//         const { count, rows: expenses } = await Expense.findAndCountAll({
+//             where: { userId: req.user.id },
+//             limit,
+//             offset
+//         });
+
+//         console.log("Total Expenses Count:", count);
+//         console.log("Expenses found:", expenses);
+
+//         const totalPages = Math.ceil(count / limit);
+
+//         res.status(200).json({
+//             expenses,
+//             currentPage: page,
+//             totalPages
+//         });
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({ success: false, message: err.message });
+//     }
+// };
+
+
+// Pagination
+// exports.getExpensesByPage = async (req, res, next) => {
+//     try {
+//         const targetPage = req.query.page;
+//         const pageSize = req.query.pageSize;
+//         const offset = (targetPage - 1) * pageSize;
+//         const expenses = await Expense.findAll({ where: { userId: req.user.id }, offset: offset
+//             , limit: pageSize
+//             });
+//             res.status(200).json(expenses);
+//             } catch (err) {
+//                 console.log(err);
+//                 res.status(500).json({ success: false, message: err.message });
+//                 }
+//       }// controllers/expense.js
+
+
+
+
+exports.getExpensesByPage = async (req, res) => {
+    try {
+        console.log('Query parameters:', req.query);
+
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 5;
+
+        console.log('Page:', page, 'PageSize:', pageSize);
+
+        if (isNaN(page) || isNaN(pageSize)) {
+            return res.status(400).json({ message: 'Invalid page or pageSize parameter' });
+        }
+
+        const offset = (page - 1) * pageSize;
+
+        console.log('User ID:', req.user.id);
+
+        const { count, rows: expenses } = await Expense.findAndCountAll({
+            where: { userId: req.user.id },
+            limit: pageSize,
+            offset: offset
+        });
+
+        console.log('Count:', count, 'Expenses:', expenses);
+
+        const totalPages = Math.ceil(count / pageSize);
+
+        res.status(200).json({
+            expenses,
+            currentPage: page,
+            totalPages: totalPages
+        });
+    } catch (error) {
+        console.error('Error fetching expenses:', error);
+        res.status(500).json({ message: 'Failed to fetch expenses.' });
     }
 };
 
@@ -97,3 +186,5 @@ exports.deleteExpense = async (req, res, next) => {
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
+
+

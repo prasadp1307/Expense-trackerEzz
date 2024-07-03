@@ -4,7 +4,7 @@ require('dotenv').config();
 
 exports.authenticate = async (req, res, next) => {
   try {
-    const token = req.header('Authorization');
+    const token = req.header('Authorization').replace('Bearer ','');
     if (!token) {
       return res.status(401).json({ message: 'Authentication token missing' });
     }
