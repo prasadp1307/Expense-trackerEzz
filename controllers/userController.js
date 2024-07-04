@@ -71,125 +71,7 @@ function containsLetterAndNumber(str) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const loginUser = async (req, res) => {
-//     try {
-//         // Log the entire request body
-//         console.log('Request body:', req.body);
-
-//         const { email, password } = req.body;
-
-//         // Check if email and password are provided
-//         if (!email || !password) {
-//             console.log('Missing email or password');
-//             return res.status(400).json({ success: false, message: 'Email and password are required' });
-//         }
-
-//         // Trim the email
-//         const trimmedEmail = email.trim();
-
-//         console.log(`with: ${trimmedEmail} ${password}`);
-
-//         // Validate input
-//         if (Invalidstring(trimmedEmail) || Invalidstring(password)) {
-//             return res.status(400).json({ success: false, message: 'All the fields are mandatory' });
-//         }
-
-//         // Find user by email
-//         const user = await Users.findOne({ where: { email: trimmedEmail } });
-
-//         // If user is found
-//         if (user) {
-//             // Compare stored password hash with provided password
-//             bcrypt.compare(password, user.password, async (err, result) => {
-//                 if (err) {
-//                     return res.status(500).json({ success: false, message: "Something Went Wrong" });
-//                 }
-
-//                 // If passwords match
-//                 if (result === true) {
-//                     try {
-//                         // Check premium status
-//                         const premiumCheck = await user.getOrders({ where: { status: 'SUCCESS' } });
-//                         const isPremium = premiumCheck.length > 0;
-
-//                         // Generate JWT token with user details
-//                         const token = generateToken(user.id, user.name, isPremium);
-//                         res.status(201).json({ success: true, message: "Successfully logged in", token });
-//                     } catch (err) {
-//                         console.error('Error checking premium status:', err);
-//                         res.status(500).json({ success: false, message: 'Server error' });
-//                     }
-//                 } else {
-//                     // Handle incorrect password
-//                     res.status(401).json({ success: false, message: "Password is incorrect" });
-//                 }
-//             });
-//         } else {
-//             // Handle user not found
-//             res.status(404).json({ success: false, message: "User not found" });
-//         }
-
-//     } catch (err) {
-//         // Handle unexpected server errors
-//         res.status(500).json({ message: err.message, success: false });
-//     }
-// }
-
-// function Invalidstring(str) {
-//     return (!str || str.trim().length === 0);
-// }
+// Login User Controller 
 const loginUser = async (req, res) => {
     try {
         console.log('Request body:', req.body);
@@ -258,12 +140,6 @@ const loginUser = async (req, res) => {
 function Invalidstring(str) {
     return (!str || str.trim().length === 0);
 }
-
-// module.exports = { loginUser };
-
-
-
-
 
 
 

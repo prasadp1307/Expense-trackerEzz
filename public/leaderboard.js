@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('DOM fully loaded and parsed'); // Debugging statement
+    console.log('DOM fully loaded and parsed'); 
     const token = localStorage.getItem('token');
-    console.log('Token:', token); // Debugging statement
+    console.log('Token:', token); 
     const leaderboardBody = document.getElementById('leaderboard-body');
-    console.log('Leaderboard Body:', leaderboardBody); // Debugging statement
+    console.log('Leaderboard Body:', leaderboardBody); 
 
     if (!leaderboardBody) {
         console.error('Leaderboard body element not found.');
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log('Leaderboard Response:', response.data); // Debugging statement
+        console.log('Leaderboard Response:', response.data); 
 
         const users = response.data;
         users.forEach((user, index) => {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log('Premium Response:', premiumResponse.data); // Debugging statement
+        console.log('Premium Response:', premiumResponse.data); 
 
         if (premiumResponse.data.isPremium) {
             // document.querySelector('.premium').innerHTML = '<p>&#x1F451; You are Premium User &#x1F451;</p>';

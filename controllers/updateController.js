@@ -14,12 +14,12 @@ exports.updateTrans = async (req, res, next) => {
         // Extract the authorization token from the request headers
         const token = req.header('Authorization');
         
-        // Verify the token to get user details using the secret key
         const userDetails = jwt.verify(token, process.env.JSW_TOKEN_SECRETKEY);
         
-        // Generate a new token with updated user details (e.g., setting isPremium to true)
+        // Generate a new token with updated user details 
         const newToken = generateToken(userDetails.userId, userDetails.name, true);
-        // console.log(newToken)  // This line can be uncommented for debugging purposes
+        // console.log(newToken)  
+
 
         // Destructure payment_id and order_id from the request body
         const { payment_id, order_id } = req.body;
@@ -45,9 +45,10 @@ exports.updateTrans = async (req, res, next) => {
             throw new Error(error);
         });
 
-        // This line is redundant since the response is already sent in Promise.all
+       
         // res.status(201).json({ token: newToken, order });
     } catch (err) {
+        
         // Log any errors that occur during the process
         console.error(err);
         

@@ -1,45 +1,6 @@
 let currentPage = 1;
 let totalPages = 1;
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const pageSize = getStoredPageSize() || 5; // Set a default value if not found in local storage
-//     loadExpenses(currentPage, pageSize);
-
-//     const entriesPerPageSelect = document.getElementById('pageSizeSelector');
-//     const prevPageButton = document.getElementById('prevPage');
-//     const nextPageButton = document.getElementById('nextPage');
-
-//     if (entriesPerPageSelect && prevPageButton && nextPageButton) {
-//         entriesPerPageSelect.addEventListener('change', function() {
-//             currentPage = 1;
-//             loadExpenses(currentPage, parseInt(this.value));
-//         });
-
-//         prevPageButton.addEventListener('click', function() {
-//             if (currentPage > 1) {
-//                 currentPage--;
-//                 loadExpenses(currentPage, parseInt(entriesPerPageSelect.value));
-//             }
-//         });
-
-//         nextPageButton.addEventListener('click', function() {
-//             if (currentPage < totalPages) {
-//                 currentPage++;
-//                 loadExpenses(currentPage, parseInt(entriesPerPageSelect.value));
-//             }
-//         });
-//     } else {
-//         console.error('Pagination controls not found');
-//     }
-// });
-
-// function getStoredPageSize() {
-//     return parseInt(localStorage.getItem('pageSize')) || 5; // Default to 5 if not found
-// }
-
-
-
-
 // // This function handles the change in page size selector
 function pageSelectorChanged(event) {
     console.log(event.target.value);
@@ -64,11 +25,11 @@ document.addEventListener('click', async function(e) {
             // Remove the deleted expense item from the UI
             e.target.parentElement.remove();
             
-            // Optional: If using pagination, fetch updated data after deletion
+          
             const selector = document.getElementById('pageSizeSelector');
             const pageSize = selector.value;
-            const page = 1; // Assuming you want to fetch the first page of data after deletion
-            getData(page, pageSize, token); // Call your function to fetch updated data
+            const page = 1; 
+            getData(page, pageSize, token); 
         } catch (err) {
             console.log("Error:", err.response ? err.response.data : err.message);
         }
@@ -82,7 +43,7 @@ function renderExpenseList(expenses) {
 
     expenses.forEach(expense => {
         const newLi = document.createElement('li');
-        newLi.innerHTML = `<span>${expense.expenseamount} - ${expense.category} - ${expense.description}</span><button class="deleteExpense" id="${expense.id}">Delete Expense</button>`;
+        newLi.innerHTML = `<span>&#8377;${expense.expenseamount} - ${expense.category} - ${expense.description}</span><button class="deleteExpense" id="${expense.id}">Delete Expense</button>`;
         expenseList.appendChild(newLi);
     });
 }
@@ -100,6 +61,9 @@ async function getData(page, pageSize, token) {
 
         // Handle pagination UI updates if needed
         document.getElementById('pageNumber').innerText = currentPage;
+
+
+
         // Update totalPagesElement based on your pagination logic
         document.getElementById('prevPage').disabled = currentPage === 1;
         document.getElementById('nextPage').disabled = currentPage === totalPagesElement;

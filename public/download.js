@@ -10,12 +10,13 @@
         headers: { Authorization: `Bearer ${token}` }
     }).then((premiumResponse) => {
         if (premiumResponse.data.isPremium) {
-            window.location.href = '/reports.html'; // Redirect to reports page if user is premium
+            window.location.href = '/reports.html'; 
         } else {
-            alert('You need to be a premium user to access the reports.'); // Alert message if not premium
+            alert('You need to be a premium user to access the reports.'); 
         }
     }).catch((err) => {
         console.error('Error checking premium status:', err);
+        
         // Handle error checking premium status
         alert('Error checking premium status. Please try again later.');
     });

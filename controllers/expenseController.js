@@ -2,12 +2,6 @@ const Expense = require('../models/expense');
 const User = require('../util/user');
 const sequelize = require('../database/db');
 
-
-function InvalidString(str){
-    return str.length===0 || str === undefined;
-}
-
-
 exports.getExpenses = async (req, res, next) => {
     try {
         console.log("Fetching expenses for user ID:", req.user.id);
@@ -19,57 +13,6 @@ exports.getExpenses = async (req, res, next) => {
         res.status(500).json({ success: false, message: err.message });
     }
 };
-// exports.getExpenses = async (req, res, next) => {
-//     try {
-//         console.log("Fetching expenses for user ID:", req.user.id);
-
-//         const page = parseInt(req.query.page) || 1;
-//         const limit = parseInt(req.query.pageSize) || 5;
-//         const offset = (page - 1) * limit;
-
-//         console.log(`Page: ${page}, Limit: ${limit}, Offset: ${offset}`);
-
-//         const { count, rows: expenses } = await Expense.findAndCountAll({
-//             where: { userId: req.user.id },
-//             limit,
-//             offset
-//         });
-
-//         console.log("Total Expenses Count:", count);
-//         console.log("Expenses found:", expenses);
-
-//         const totalPages = Math.ceil(count / limit);
-
-//         res.status(200).json({
-//             expenses,
-//             currentPage: page,
-//             totalPages
-//         });
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({ success: false, message: err.message });
-//     }
-// };
-
-
-// Pagination
-// exports.getExpensesByPage = async (req, res, next) => {
-//     try {
-//         const targetPage = req.query.page;
-//         const pageSize = req.query.pageSize;
-//         const offset = (targetPage - 1) * pageSize;
-//         const expenses = await Expense.findAll({ where: { userId: req.user.id }, offset: offset
-//             , limit: pageSize
-//             });
-//             res.status(200).json(expenses);
-//             } catch (err) {
-//                 console.log(err);
-//                 res.status(500).json({ success: false, message: err.message });
-//                 }
-//       }// controllers/expense.js
-
-
-
 
 exports.getExpensesByPage = async (req, res) => {
     try {
@@ -188,3 +131,7 @@ exports.deleteExpense = async (req, res, next) => {
 };
 
 
+
+function InvalidString(str){
+    return str.length===0 || str === undefined;
+}
